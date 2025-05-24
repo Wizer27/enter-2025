@@ -10,10 +10,11 @@ headers = {"Authorization": TOKEN}
 
 
 r_mathes = requests.get("https://lksh-enter.ru/matches",headers = headers)
-
-mathes = r_mathes.json()
-
-
+try:  
+    mathes = r_mathes.json()
+except:
+    print("Ошибка")
+print(mathes)
 r_teams = requests.get("https://lksh-enter.ru/teams",headers = headers)
 teams = r_teams.json()
 
@@ -48,4 +49,7 @@ pl = []
 for i in players:
     pl.append(players[i]["name"] + ' ' + players[i]["surname"])
     
-print(sorted(pl))    
+pl = sorted(set(pl))
+  
+for i in pl:
+    print(i)   
