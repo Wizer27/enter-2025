@@ -44,5 +44,8 @@ for i in teams:
             players[pl_id] = response_player.json()
         except:
             print("Что то пошло не так")
-print(teams_info["Manchester United"])
-print(players)
+pl = []
+for i in players:
+    pl.append(players[i]["name"] + ' ' + players[i]["surname"])
+    
+print(pl)    
