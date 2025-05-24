@@ -18,8 +18,8 @@ r_teams = requests.get("https://lksh-enter.ru/teams",headers = headers)
 teams = r_teams.json()
 
 
-print("DEBUG:",teams)
-
+#print("DEBUG:",teams)
+#print(teams)
 
 
 
@@ -28,14 +28,21 @@ players = {}
 
 for i in teams:
     r2_t = requests.get(f"https://lksh-enter.ru/teams/{i['id']}",headers = headers)
-    team_det = r2_t.json()
-    print("Статус команды:",r2_t.status_code)
-    print("Текст:",r2_t.text)
+    try:
+        team_det = r2_t.json()
+    except:
+        print("Сервер вернул не JSON. Ответ:", r2_t.text[:100])    
+    #print("Статус команды:",r2_t.status_code)
+    #print("Текст:",r2_t.text)
     teams_info[team_det["name"]] = {
         "id":team_det["id"],
         "players":team_det["players"]
     }
     for pl_id in team_det["players"]:
         response_player = requests.get(f"https://lksh-enter.ru/players/{pl_id}", headers=headers)
-        players[pl_id] = response_player.json()
-print(mathes)
+        try: 
+            players[pl_id] = response_player.json()
+        except:
+            print("Что то пошло не так")
+print(teams_info["Manchester United"])
+print(players)
