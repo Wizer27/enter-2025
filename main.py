@@ -48,4 +48,4 @@ pl = []
 for i in players:
     pl.append(players[i]["name"] + ' ' + players[i]["surname"])
     
-print(pl)    
+print(sorted(pl))    
