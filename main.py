@@ -47,9 +47,14 @@ for i in teams:
             print("Что то пошло не так")
 pl = []
 for i in players:
-    pl.append(players[i]["name"] + ' ' + players[i]["surname"])
-    
-pl = sorted(set(pl))
-  
+    name = players[i].get("name", "").strip()
+    surname = players[i].get("surname", "").strip()
+    full_name = f"{name} {surname}".strip()
+    if full_name:
+        pl.append(full_name)
+
+pl = sorted(set(pl), key=lambda x: x.lower())
+
+
 for i in pl:
-    print(i)   
+    print(i)
