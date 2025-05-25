@@ -3,6 +3,11 @@ import json
 import sys
 from dotenv import load_dotenv
 import os
+
+
+
+
+
 load_dotenv()  # Загружает переменные из .env
 TOKEN = os.getenv("API_TOKEN")
 headers = {"Authorization": TOKEN} 
@@ -61,8 +66,8 @@ pl = sorted(set(pl), key=lambda x: x.lower())
 
 # вывод отсортированный
 #for i in pl:
-    #print(i)
-  
+    #print(i)  
+    
 while True:
     command = input("Введите команду: ")
     if "stats?" in command:
@@ -94,4 +99,5 @@ while True:
                     goals_rz += (match["team2_score"] - match["team1_score"])     
            formatted_diff = f"+{goals_rz}" if goals_rz > 0 else str(goals_rz)
            print(f"{wins} {loses} {formatted_diff}")
+           
                
