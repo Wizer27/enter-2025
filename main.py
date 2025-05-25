@@ -99,5 +99,31 @@ while True:
                     goals_rz += (match["team2_score"] - match["team1_score"])     
            formatted_diff = f"+{goals_rz}" if goals_rz > 0 else str(goals_rz)
            print(f"{wins} {loses} {formatted_diff}")
+    if "versus?" in command:
+        com = command.split()
+        id1 = int(com[1])
+        id2 = int(com[2])
+        res = []
+        #for i in teams_info:
+            #if id1 in teams_info[i]["players"]:
+                #print(teams_info[i]) 
+                #res.append(teams_info[i]["id"])  
+        #print(res)             
+        if id1 not in players or id2 not in players:
+            print('0')
+            continue
+        # команды первого игрока
+        pl1_teams = []
+        for tems_name in teams_info:
+           if id1 in teams_info[tems_name]["players"]:
+                pl1_teams.append(teams_info[tems_name]["id"])
+        # команды второго игрока
+        pl2_teams = []  
+        for team_name in teams_info:
+            if id2 in teams_info[team_name]["players"]:
+                pl2_teams.append(teams_info[team_name]["id"])
+        print(f"Команды первого игрока {pl1_teams}")
+        print(f"Команды второго игрока {pl2_teams}")          
+                  
            
                
