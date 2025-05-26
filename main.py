@@ -13,9 +13,10 @@ load_dotenv()  # Загружает переменные из .env
 TOKEN = os.getenv("API_TOKEN")
 headers = {"Authorization": TOKEN} 
 
-
 # матчи
+
 r_mathes = requests.get("https://lksh-enter.ru/matches",headers = headers)
+
 try:  
     mathes = r_mathes.json()
 except:
@@ -81,12 +82,8 @@ for i in pl:
 #print(mathes)    
 while True:
     command = input("Введите команду: ")
-    if "stats?" in command:
-        try:
-            
-            team = command.split('"')[1]
-        except:
-            print("Ошибка ввода")    
+    if "stats?" in command and '"' in command: 
+        team = command.split('"')[1]
         if team not in teams_info:
             print("0 0 0")
             continue
@@ -115,43 +112,49 @@ while True:
            formatted_diff = f"+{goals_rz}" if goals_rz > 0 else str(goals_rz)
            print(f"{wins} {loses} {formatted_diff}")
     if "versus?" in command:
-        com = command.split()
-        try:
-            
-            id1 = int(com[1])
-            id2 = int(com[2])
-            if id < 0 or id2 < 0:
-                raise ValueError
-        except:
-            print("Ошибка ввода")    
-        res = []
         
-        #for i in teams_info:
-         #   print(teams_info[i]["players"])
+        
+        com = command.split()
+        if len(com) < 3:
+            print("Ошибка ввода")
+        else:    
+            try:
+                
+                id1 = int(com[1])
+                id2 = int(com[2])
+                if id1 < 0 or id2 < 0:
+                    raise ValueError
+            except:
+                print("Ошибка ввода")    
+            res = []
             
-        if id1 not in players or id2 not in players:
-            print('0')
-            continue
-        # команды первого игрока
-        pl1_teams = []
-        for tems_name in teams_info:
-           if id1 in teams_info[tems_name]["players"]:
-                pl1_teams.append(teams_info[tems_name]["id"])
-        # команды второго игрока
-        pl2_teams = []  
-        for team_name in teams_info:
-            if id2 in teams_info[team_name]["players"]:
-                pl2_teams.append(teams_info[team_name]["id"])
-        #print(f"Команды первого игрока {pl1_teams}") тестовые print
-        #print(f"Команды второго игрока {pl2_teams}") 
-        mathc_count = 0 
-        for match in mathes:
-            if (match["team1"] in pl1_teams) and (match["team2"] in pl2_teams):
-                mathc_count += 1
-            elif (match["team1"] in pl2_teams) and (match["team2"] in pl1_teams):
-                mathc_count += 1
-        print(mathc_count)        
-                 
+            #for i in teams_info:
+            #   print(teams_info[i]["players"])
+                
+            if id1 not in players or id2 not in players:
+                print('0')
+                continue
+            # команды первого игрока
+            pl1_teams = []
+            for tems_name in teams_info:
+                if id1 in teams_info[tems_name]["players"]:
+                        pl1_teams.append(teams_info[tems_name]["id"])
+                # команды второго игрока
+                pl2_teams = []  
+                for team_name in teams_info:
+                    if id2 in teams_info[team_name]["players"]:
+                        pl2_teams.append(teams_info[team_name]["id"])
+            #print(f"Команды первого игрока {pl1_teams}") тестовые print
+            #print(f"Команды второго игрока {pl2_teams}") 
+            mathc_count = 0 
+            for match in mathes:
+                if (match["team1"] in pl1_teams) and (match["team2"] in pl2_teams ) and (pl2_teams != pl1_teams):
+                    mathc_count += 1
+                elif (match["team1"] in pl2_teams) and (match["team2"] in pl1_teams) and (pl2_teams != pl1_teams):
+                    mathc_count += 1
+            print(mathc_count)        
+    elif  ("versus?" not  in command) and ( "stats?" not in command and '"' not  in command):
+        print("Команда не распознана")             
                   
            
                
