@@ -3,6 +3,7 @@ import json
 import sys
 from dotenv import load_dotenv
 import os
+from prettytable import PrettyTable
 
 
 
@@ -52,7 +53,17 @@ for i in teams:
             players[pl_id] = response_player.json()
         except:
             print("Что то пошло не так")
-# беру только имена и фамилии            
+# беру только имена и фамилии     
+
+
+all_camands = [
+    ['stats? "Название команды" ', "Выведет статистику команды"],
+    ["versus? player1 player2", "Выведет статистику игроков друг против друга"]
+]  
+table = PrettyTable(["Команда","Что делает"])
+for i in all_camands:
+    table.add_row(i)
+print(table)    
 pl = []
 for i in players:
     name = players[i].get("name", "").strip()
@@ -65,8 +76,8 @@ for i in players:
 pl = sorted(set(pl), key=lambda x: x.lower())
 
 # вывод отсортированный
-#for i in pl:
-    #print(i)  
+for i in pl:
+    print(i)  
     
 while True:
     command = input("Введите команду: ")
@@ -104,11 +115,10 @@ while True:
         id1 = int(com[1])
         id2 = int(com[2])
         res = []
-        #for i in teams_info:
-            #if id1 in teams_info[i]["players"]:
-                #print(teams_info[i]) 
-                #res.append(teams_info[i]["id"])  
-        #print(res)             
+        
+        for i in teams_info:
+            print(teams_info[i]["players"])
+            
         if id1 not in players or id2 not in players:
             print('0')
             continue
@@ -122,8 +132,16 @@ while True:
         for team_name in teams_info:
             if id2 in teams_info[team_name]["players"]:
                 pl2_teams.append(teams_info[team_name]["id"])
-        print(f"Команды первого игрока {pl1_teams}")
-        print(f"Команды второго игрока {pl2_teams}")          
+        #print(f"Команды первого игрока {pl1_teams}") тестовые print
+        #print(f"Команды второго игрока {pl2_teams}") 
+        mathc_count = 0 
+        for match in mathes:
+            if (match["team1"] in pl1_teams) and (match["team2"] in pl2_teams):
+                mathc_count += 1
+            elif (match["team1"] in pl2_teams) and (match["team2"] in pl1_teams):
+                mathc_count += 1
+        print(mathc_count)        
+                 
                   
            
                
