@@ -78,11 +78,15 @@ pl = sorted(set(pl), key=lambda x: x.lower())
 # вывод отсортированный
 for i in pl:
     print(i)  
-    
+#print(mathes)    
 while True:
     command = input("Введите команду: ")
     if "stats?" in command:
-        team = command.split('"')[1]
+        try:
+            
+            team = command.split('"')[1]
+        except:
+            print("Ошибка ввода")    
         if team not in teams_info:
             print("0 0 0")
             continue
@@ -112,12 +116,18 @@ while True:
            print(f"{wins} {loses} {formatted_diff}")
     if "versus?" in command:
         com = command.split()
-        id1 = int(com[1])
-        id2 = int(com[2])
+        try:
+            
+            id1 = int(com[1])
+            id2 = int(com[2])
+            if id < 0 or id2 < 0:
+                raise ValueError
+        except:
+            print("Ошибка ввода")    
         res = []
         
-        for i in teams_info:
-            print(teams_info[i]["players"])
+        #for i in teams_info:
+         #   print(teams_info[i]["players"])
             
         if id1 not in players or id2 not in players:
             print('0')
