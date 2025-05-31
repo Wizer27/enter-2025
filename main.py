@@ -16,7 +16,9 @@ headers = {"Authorization": TOKEN}
 # матчи
 
 r_mathes = requests.get("https://lksh-enter.ru/matches",headers = headers)
-
+if r_mathes.status_code != 200:
+    print("Ошибка сервера:", r_mathes.status_code)
+    sys.exit(1)
 try:  
     mathes = r_mathes.json()
 except:
@@ -56,15 +58,7 @@ for i in teams:
             print("Что то пошло не так")
 # беру только имена и фамилии     
 
-
-all_camands = [
-    ['stats? "Название команды" ', "Выведет статистику команды"],
-    ["versus? player1 player2", "Выведет статистику игроков друг против друга"]
-]  
-table = PrettyTable(["Команда","Что делает"])
-for i in all_camands:
-    table.add_row(i)
-print(table)    
+ 
 pl = []
 for i in players:
     name = players[i].get("name", "").strip()
@@ -78,7 +72,17 @@ pl = sorted(set(pl), key=lambda x: x.lower())
 
 # вывод отсортированный
 for i in pl:
-    print(i)  
+    print(i) 
+all_camands = [
+    ['stats? "Название команды" ', "Выведет статистику команды"],
+    ["versus? player1 player2", "Выведет статистику игроков друг против друга"]
+]  
+table = PrettyTable(["Команда","Что делает"])
+for i in all_camands:
+    table.add_row(i)
+print(table)   
+
+    
 #print(mathes)    
 while True:
     command = input("Введите команду: ")
@@ -128,8 +132,7 @@ while True:
                 print("Ошибка ввода")    
             res = []
             
-            #for i in teams_info:
-            #   print(teams_info[i]["players"])
+           
                 
             if id1 not in players or id2 not in players:
                 print('0')
@@ -140,17 +143,17 @@ while True:
                 if id1 in teams_info[tems_name]["players"]:
                         pl1_teams.append(teams_info[tems_name]["id"])
                 # команды второго игрока
-                pl2_teams = []  
-                for team_name in teams_info:
-                    if id2 in teams_info[team_name]["players"]:
-                        pl2_teams.append(teams_info[team_name]["id"])
+            pl2_teams = []  
+            for team_name in teams_info:
+                if id2 in teams_info[team_name]["players"]:
+                    pl2_teams.append(teams_info[team_name]["id"])
             #print(f"Команды первого игрока {pl1_teams}") тестовые print
             #print(f"Команды второго игрока {pl2_teams}") 
             mathc_count = 0 
             for match in mathes:
-                if (match["team1"] in pl1_teams) and (match["team2"] in pl2_teams ) and (pl2_teams != pl1_teams):
+                if ((match["team1"] in pl1_teams) and (match["team2"] in pl2_teams ) and (pl2_teams != pl1_teams)) or (match["team1"] in pl1_teams and match["team1"] in pl2_teams):
                     mathc_count += 1
-                elif (match["team1"] in pl2_teams) and (match["team2"] in pl1_teams) and (pl2_teams != pl1_teams):
+                elif (match["team1"] in pl2_teams) and (match["team2"] in pl1_teams) and (pl2_teams != pl1_teams) or (match["team2"] in pl1_teams and match["team2"] in pl2_teams):
                     mathc_count += 1
             print(mathc_count)        
     elif  ("versus?" not  in command) and ( "stats?" not in command and '"' not  in command):
