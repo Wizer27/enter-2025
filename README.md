@@ -1,37 +1,59 @@
 # enter-2025
-This project is part of the ENTER 2025 program. It is written in Python and contains the source code and resources for the ENTER 2025 initiative.
 
-How to Run the Project
-Prerequisites
-Python 3.8 or higher
+<h1 align="center">ENTER 2025</h1>
 
-pip (Python package manager)
+<h2>About</h2>
+<p>This repository contains the Python implementation for the ENTER 2025 program. The project includes core functionality and utilities developed for the initiative.</p>
 
-Git installed on your system
+<h2>Installation</h2>
+<ol>
+  <li>Clone the repository:
+    <pre><code>git clone https://github.com/Wizer27/enter-2025.git
+cd enter-2025</code></pre>
+  </li>
+  <li>Create and activate virtual environment:
+    <pre><code>python -m venv venv
+# Linux/Mac:
+source venv/bin/activate
+# Windows:
+.\venv\Scripts\activate</code></pre>
+  </li>
+  <li>Install dependencies:
+    <pre><code>pip install -r requirements.txt</code></pre>
+  </li>
+</ol>
 
-Installation Steps
-Clone the repository:
+<h2>Usage</h2>
+<p>Run the main application:</p>
+<pre><code>python main.py</code></pre>
 
-bash
-git clone https://github.com/Wizer27/enter-2025.git  
-Navigate to the project directory:
+<h2>Project Structure</h2>
+<pre>
+enter-2025/
+├── src/                - Main source code
+├── tests/              - Test cases
+├── data/               - Data files
+├── docs/               - Documentation
+├── requirements.txt    - Dependencies
+└── README.md           - This file
+</pre>
 
-bash
-cd enter-2025  
-(Optional) Create and activate a virtual environment:
+<h2>Development</h2>
+<p>Run tests:</p>
+<pre><code>python -m pytest</code></pre>
 
-bash
-python -m venv venv  
-source venv/bin/activate  # Linux/Mac  
-venv\Scripts\activate    # Windows  
-Install dependencies:
+<p>Format code (if using Black):</p>
+<pre><code>black .</code></pre>
 
-bash
-pip install -r requirements.txt  
-Run the project:
+<h2>Configuration</h2>
+<p>Create <code>.env</code> file for environment variables:</p>
+<pre>
+DATABASE_URL=your_db_url
+API_KEY=your_api_key
+</pre>
 
-bash
-python main.py  # or the appropriate entry file  
+<h2>License</h2>
+<p>MIT License</p>
 
 <img width="858" alt="Screenshot 2025-05-31 at 12 06 32 PM" src="https://github.com/user-attachments/assets/d2d107e8-e350-4e7d-8e35-819b20131ae5" />
 <img width="758" alt="Screenshot 2025-05-31 at 12 07 38 PM" src="https://github.com/user-attachments/assets/beb8c236-2803-461a-94ee-460d22f499c5" />
