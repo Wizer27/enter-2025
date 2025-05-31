@@ -27,16 +27,7 @@ source venv/bin/activate
 <p>Run the main application:</p>
 <pre><code>python main.py</code></pre>
 
-<h2>Project Structure</h2>
-<pre>
-enter-2025/
-├── src/                - Main source code
-├── tests/              - Test cases
-├── data/               - Data files
-├── docs/               - Documentation
-├── requirements.txt    - Dependencies
-└── README.md           - This file
-</pre>
+
 
 <h2>Development</h2>
 <p>Run tests:</p>
