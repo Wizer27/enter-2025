@@ -1,5 +1,4 @@
 # enter-2025
-Project Description
 This project is part of the ENTER 2025 program. It is written in Python and contains the source code and resources for the ENTER 2025 initiative.
 
 How to Run the Project
